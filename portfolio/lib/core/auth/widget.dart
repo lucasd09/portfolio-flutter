@@ -11,9 +11,22 @@ class Auth extends StatefulWidget {
 class _AuthState extends State<Auth> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: BackgroundColor,
-      body: Center(child: Text('Teste')),
+      body: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            'LUCAS DALAN',
+            style: TextStyle(color: Colors.white),
+          ),
+          const Text('Software Developer',
+              style: TextStyle(color: Colors.white)),
+          ElevatedButton(onPressed: () {}, child: const Text('Conhecer')),
+          TextButton(onPressed: () {}, child: const Text('Área do Admin'))
+        ],
+      )),
     );
   }
 }
