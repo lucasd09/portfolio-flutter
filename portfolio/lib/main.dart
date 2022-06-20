@@ -3,15 +3,11 @@ import 'package:portfolio/core/auth/widget.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 
-//Future main() async {
-//  WidgetsFlutterBinding.ensureInitialized();
-//  await Firebase.initializeApp(
-//    options: DefaultFirebaseOptions.currentPlatform,
-//  );
-//  runApp(const MyApp());
-//}
-
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -21,7 +17,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.green,
+          fontFamily: 'ReemKufi-Regular',
         ),
         home: const Auth());
   }
