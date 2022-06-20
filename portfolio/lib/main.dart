@@ -1,13 +1,18 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:portfolio/core/auth/widget.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio/core/login/widget.dart';
 
-Future main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+//Future main() async {
+//  WidgetsFlutterBinding.ensureInitialized();
+//  await Firebase.initializeApp(
+//    options: DefaultFirebaseOptions.currentPlatform,
+//  );
+//  runApp(const MyApp());
+//}
+
+void main() {
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -18,6 +23,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const Login());
+        home: const Auth());
   }
 }
