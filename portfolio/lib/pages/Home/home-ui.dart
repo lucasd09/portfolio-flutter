@@ -124,7 +124,7 @@ class _HomeState extends State<Home> {
               thickness: 1,
             ),
             SizedBox(
-              height: 450,
+              height: 550,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -135,6 +135,8 @@ class _HomeState extends State<Home> {
                       style: TextStyle(fontSize: 32),
                     ),
                   ),
+                  const Text(
+                      'Esse é meu projeto mais recente em que estou trabalhando:'),
                   Padding(
                     padding: const EdgeInsets.all(25.0),
                     child: StreamBuilder(
