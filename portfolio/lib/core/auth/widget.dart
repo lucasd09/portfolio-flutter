@@ -14,7 +14,7 @@ class _AuthState extends State<Auth> {
   final ButtonStyle style = ElevatedButton.styleFrom(
     textStyle: const TextStyle(fontSize: 32),
     fixedSize: const Size(261, 58),
-    side: const BorderSide(color: PrimaryColor, width: 3),
+    side: const BorderSide(color: PrimaryColor, width: 4),
     shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(29))),
   );
