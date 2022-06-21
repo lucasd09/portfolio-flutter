@@ -21,6 +21,10 @@ class Projects extends StatelessWidget {
               ))
         ],
       ),
+      body: SizedBox.expand(
+          child: Column(
+        children: [],
+      )),
     );
   }
 }
