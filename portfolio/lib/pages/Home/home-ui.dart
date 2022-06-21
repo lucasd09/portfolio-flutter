@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/constants/app_constants.dart';
+import 'package:portfolio/pages/Projects/projects.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -87,7 +88,8 @@ class _HomeState extends State<Home> {
 
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
-                            return const CircularProgressIndicator();
+                            return const Center(
+                                child: CircularProgressIndicator());
                           }
 
                           final data = snapshot.requireData;
@@ -135,8 +137,11 @@ class _HomeState extends State<Home> {
                       style: TextStyle(fontSize: 32),
                     ),
                   ),
-                  const Text(
-                      'Esse é meu projeto mais recente em que estou trabalhando:'),
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(25, 25, 25, 0),
+                    child: Text(
+                        'Esse é meu projeto mais recente em que estou trabalhando:'),
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(25.0),
                     child: StreamBuilder(
@@ -149,7 +154,8 @@ class _HomeState extends State<Home> {
 
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
-                            return const CircularProgressIndicator();
+                            return const Center(
+                                child: CircularProgressIndicator());
                           }
 
                           final data = snapshot.requireData;
@@ -183,7 +189,7 @@ class _HomeState extends State<Home> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Home()),
+                                    builder: (context) => const Projects()),
                               );
                             },
                             child: const Text(
@@ -194,6 +200,26 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                 ],
+              ),
+            ),
+            Container(
+              color: BackgroundColor,
+              child: SizedBox(
+                height: 80,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: const [
+                      Padding(
+                        padding: EdgeInsets.all(15.0),
+                        child: Text(
+                          'Developed by Lucas Dalan',
+                          style: TextStyle(color: Colors.white70, fontSize: 16),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
           ],
