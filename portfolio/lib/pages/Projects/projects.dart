@@ -28,8 +28,20 @@ class Projects extends StatelessWidget {
       body: SizedBox.expand(
           child: Column(
         children: [
-          const Text('Projetos'),
-          const Text('Esses são todos os projetos que já fiz:'),
+          const Padding(
+            padding: EdgeInsets.only(top: 20),
+            child: Text(
+              'Projetos',
+              style: TextStyle(fontSize: 36),
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.only(top: 10),
+            child: Text(
+              'Esses são todos os projetos que já fiz:',
+              style: TextStyle(fontSize: 16),
+            ),
+          ),
           StreamBuilder(
               stream: projects,
               builder: (BuildContext context,
@@ -44,7 +56,31 @@ class Projects extends StatelessWidget {
 
                 final data = snapshot.requireData;
 
-                return ListView.builder(itemBuilder: itemBuilder);
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: data.size,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 25, 25, 0),
+                      child: Card(
+                        clipBehavior: Clip.antiAlias,
+                        child: Column(
+                          children: [
+                            Image.asset('images/logo1.png', height: 150),
+                            ListTile(
+                              title: Text(data.docs[index]['name']),
+                              subtitle: Text(
+                                data.docs[0]['desc'],
+                                style: TextStyle(
+                                    color: Colors.black.withOpacity(0.6)),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
               })
         ],
       )),
