@@ -182,7 +182,7 @@ class _HomeState extends State<Home> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 30),
+                        padding: const EdgeInsets.only(bottom: 15),
                         child: OutlinedButton(
                             style: style,
                             onPressed: () {
@@ -201,6 +201,19 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
+            ),
+            const Divider(
+              thickness: 1,
+            ),
+            SizedBox(
+              child: Column(children: const [
+                Text('Contato'),
+                Text('Contato'),
+                Text('Contato'),
+                Text('Contato'),
+                Text('Contato'),
+                Text('Contato'),
+              ]),
             ),
             Container(
               color: BackgroundColor,
