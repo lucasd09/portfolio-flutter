@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/constants/app_constants.dart';
+import 'package:portfolio/core/auth_service.dart';
+import 'package:provider/provider.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
 
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   final email = TextEditingController();
+
   final pass = TextEditingController();
+
+  void dispose() {
+    email.dispose();
+    pass.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +53,13 @@ class Login extends StatelessWidget {
                   labelText: 'Senha',
                 ),
               ),
-              OutlinedButton(onPressed: () {}, child: const Text('Login'))
+              OutlinedButton(
+                  onPressed: () {
+                    context.read<AuthService>().signIn(
+                        email: email.text.trim(),
+                        password: pass.text.trim());
+                  },
+                  child: const Text('Login'))
             ],
           ),
         ),
