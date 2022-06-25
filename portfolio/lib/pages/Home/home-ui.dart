@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/constants/app_constants.dart';
+import 'package:portfolio/pages/About/about.dart';
 import 'package:portfolio/pages/Projects/projects.dart';
 
 class Home extends StatefulWidget {
@@ -109,7 +110,7 @@ class _HomeState extends State<Home> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Home()),
+                                    builder: (context) => const About()),
                               );
                             },
                             child: const Text(

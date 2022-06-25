@@ -4,7 +4,7 @@ import 'package:portfolio/core/auth_service.dart';
 import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
-  Login({Key? key}) : super(key: key);
+  const Login({Key? key}) : super(key: key);
 
   @override
   State<Login> createState() => _LoginState();
@@ -14,11 +14,6 @@ class _LoginState extends State<Login> {
   final email = TextEditingController();
 
   final pass = TextEditingController();
-
-  void dispose() {
-    email.dispose();
-    pass.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +51,7 @@ class _LoginState extends State<Login> {
               OutlinedButton(
                   onPressed: () {
                     context.read<AuthService>().signIn(
-                        email: email.text.trim(),
-                        password: pass.text.trim());
+                        email: email.text.trim(), password: pass.text.trim());
                   },
                   child: const Text('Login'))
             ],

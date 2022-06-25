@@ -1,5 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:portfolio/constants/app_constants.dart';
 import 'package:portfolio/core/auth/widget.dart';
+import 'package:portfolio/core/auth_service.dart';
+import 'package:portfolio/pages/admin/admin_page_ui.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 
@@ -15,11 +20,35 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: ThemeData(
-          primarySwatch: Colors.green,
-          fontFamily: 'ReemKufi-Regular',
-        ),
-        home: const Auth());
+    return MultiProvider(
+        providers: [
+          Provider<AuthService>(
+            create: (_) => AuthService(FirebaseAuth.instance),
+          ),
+          StreamProvider(
+            create: (context) => context.read<AuthService>().authStateChanges,
+            initialData: null,
+          )
+        ],
+        child: MaterialApp(
+          title: 'Ice App',
+          theme: ThemeData(
+              primaryColor: PrimaryColor, primarySwatch: Colors.green),
+          home: const AuthWrapper(),
+        ));
+  }
+}
+
+class AuthWrapper extends StatelessWidget {
+  const AuthWrapper({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final firebaseUser = context.watch<User?>();
+
+    if (firebaseUser != null) {
+      return const AdminPage();
+    }
+    return const Auth();
   }
 }
