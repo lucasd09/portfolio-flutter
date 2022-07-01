@@ -39,6 +39,7 @@ class _ProjetosBodyState extends State<ProjetosBody> {
   double total = 0;
 
   XFile? image;
+  String ref = '';
 
   Future getImage() async {
     final ImagePicker _picker = ImagePicker();
@@ -51,8 +52,11 @@ class _ProjetosBodyState extends State<ProjetosBody> {
   Future<UploadTask> upload(String path) async {
     File file = File(path);
     try {
-      String ref = 'images/img-${DateTime.now().toString()}.jpg';
-      return storage.ref(ref).putFile(file);
+      String tempRef = 'images/img-${DateTime.now().toString()}.jpg';
+      setState(() {
+        ref = tempRef;
+      });
+      return storage.ref(tempRef).putFile(file);
     } on FirebaseException catch (e) {
       throw Exception('Erro no upload: ${e.code}');
     }
@@ -133,12 +137,15 @@ class _ProjetosBodyState extends State<ProjetosBody> {
         ),
         ElevatedButton(
             onPressed: () {
+              pickAndUploadImage();
+
               var project = <String, dynamic>{
-                "name" : nameController.text.trim(),
-                "desc" : descController.text.trim(),
-                "github" : githubController.text.trim(),
-                "imgurl" : imgurl
+                "name": nameController.text.trim(),
+                "desc": descController.text.trim(),
+                "github": githubController.text.trim(),
+                "imgurl": ref.toString()
               };
+              print(project);
             },
             child: const Text('Adicionar'))
       ]),
