@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/constants/app_constants.dart';
 import 'package:portfolio/pages/About/about.dart';
@@ -12,6 +13,7 @@ class Home extends StatefulWidget {
 }
 
 final db = FirebaseFirestore.instance;
+final FirebaseStorage storage = FirebaseStorage.instance;
 
 var idade = DateTime.now().year - 2002;
 
@@ -36,7 +38,9 @@ class _HomeState extends State<Home> {
           backgroundColor: BackgroundColor,
           leading: Padding(
             padding: const EdgeInsets.only(left: 10),
-            child: Image.asset('images/logo1.png'),
+            child: Image.network(
+              'https://firebasestorage.googleapis.com/v0/b/portfolio-flutter-378c9.appspot.com/o/source%2FLogo1.png?alt=media&token=5fe9974b-5659-4080-bed3-88323e884d35',
+            ),
           ),
           toolbarHeight: 80,
           actions: [
@@ -165,11 +169,14 @@ class _HomeState extends State<Home> {
                             clipBehavior: Clip.antiAlias,
                             child: Column(
                               children: [
-                                Image.asset('images/logo1.png', height: 150),
+                                Image.network(
+                                  'https://firebasestorage.googleapis.com/v0/b/portfolio-flutter-378c9.appspot.com/o/source%2FLogo1.png?alt=media&token=5fe9974b-5659-4080-bed3-88323e884d35',
+                                  height: 150,
+                                ),
                                 ListTile(
-                                  title: Text(data.docs[0]['name']),
+                                  title: Text(data.docs[data.size-1]['name']),
                                   subtitle: Text(
-                                    data.docs[0]['desc'],
+                                    data.docs[data.size-1]['desc'],
                                     style: TextStyle(
                                         color: Colors.black.withOpacity(0.6)),
                                   ),

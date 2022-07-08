@@ -124,8 +124,8 @@ class _ProjetosBodyState extends State<ProjetosBody> {
                     height: 160,
                     fit: BoxFit.cover,
                   )
-                : Image.asset(
-                    'images/logo1.png',
+                : Image.network(
+                    storage.ref('source/Logo1.png').fullPath,
                     height: 160,
                   ),
             IconButton(

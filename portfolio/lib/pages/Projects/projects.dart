@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/app_constants.dart';
 
 class Projects extends StatelessWidget {
   Projects({Key? key}) : super(key: key);
+
+  final FirebaseStorage storage = FirebaseStorage.instance;
 
   final Stream<QuerySnapshot> projects =
       FirebaseFirestore.instance.collection("projects").snapshots();
@@ -66,11 +69,16 @@ class Projects extends StatelessWidget {
                         clipBehavior: Clip.antiAlias,
                         child: Column(
                           children: [
-                            Image.asset('images/logo1.png', height: 150),
+                            Image.network(
+                                storage
+                                    .ref(data.docs[index]['imgurl'])
+                                    .getDownloadURL()
+                                    .toString(),
+                                height: 150),
                             ListTile(
                               title: Text(data.docs[index]['name']),
                               subtitle: Text(
-                                data.docs[0]['desc'],
+                                data.docs[index]['desc'],
                                 style: TextStyle(
                                     color: Colors.black.withOpacity(0.6)),
                               ),

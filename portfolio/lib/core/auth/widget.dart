@@ -29,8 +29,8 @@ class _AuthState extends State<Auth> {
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 30),
-            child: Image.asset(
-              'images/logo1.png',
+            child: Image.network(
+              'https://firebasestorage.googleapis.com/v0/b/portfolio-flutter-378c9.appspot.com/o/source%2FLogo1.png?alt=media&token=5fe9974b-5659-4080-bed3-88323e884d35',
               width: 232,
               height: 285,
             ),
