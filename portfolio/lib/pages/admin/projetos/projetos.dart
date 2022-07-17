@@ -16,7 +16,7 @@ class Projetos extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: BackgroundColor,
       ),
-      body: ProjetosBody(),
+      body: const ProjetosBody(),
     );
   }
 }
@@ -52,7 +52,8 @@ class _ProjetosBodyState extends State<ProjetosBody> {
   Future<UploadTask> upload(String path) async {
     File file = File(path);
     try {
-      String tempRef = 'images/img-${DateTime.now().toString()}.jpg';
+      String tempRef =
+          'images/img-${DateTime.now().day.toString()}${DateTime.now().second.toString()}.jpg';
       setState(() {
         ref = tempRef;
       });
@@ -88,8 +89,11 @@ class _ProjetosBodyState extends State<ProjetosBody> {
 
   @override
   Widget build(BuildContext context) {
+    final Stream<QuerySnapshot> projects =
+        FirebaseFirestore.instance.collection("projects").snapshots();
+
     return Center(
-      child: Column(children: [
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         const Text('Adicionar Projeto'),
         TextFormField(
           obscureText: false,
@@ -121,12 +125,12 @@ class _ProjetosBodyState extends State<ProjetosBody> {
             image != null
                 ? Image.file(
                     File(image!.path),
-                    height: 160,
+                    height: 80,
                     fit: BoxFit.cover,
                   )
                 : Image.network(
-                    storage.ref('source/Logo1.png').fullPath,
-                    height: 160,
+                    'https://firebasestorage.googleapis.com/v0/b/portfolio-flutter-378c9.appspot.com/o/source%2FLogo1.png?alt=media&token=5fe9974b-5659-4080-bed3-88323e884d35',
+                    height: 80,
                   ),
             IconButton(
                 onPressed: () {
@@ -135,19 +139,57 @@ class _ProjetosBodyState extends State<ProjetosBody> {
                 icon: const Icon(Icons.upload))
           ]),
         ),
-        ElevatedButton(
-            onPressed: () {
-              pickAndUploadImage();
+        StreamBuilder<QuerySnapshot>(
+            stream: projects,
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                return const Text('ERRO');
+              }
 
-              var project = <String, dynamic>{
-                "name": nameController.text.trim(),
-                "desc": descController.text.trim(),
-                "github": githubController.text.trim(),
-                "imgurl": ref.toString()
-              };
-              print(project);
-            },
-            child: const Text('Adicionar'))
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
+              }
+
+              final data = snapshot.requireData;
+              return ElevatedButton(
+                  onPressed: () {
+                    if (nameController.text != '' &&
+                        descController.text != '' &&
+                        githubController.text != '') {
+                      pickAndUploadImage();
+
+                      var project = <String, dynamic>{
+                        "name": nameController.text.trim(),
+                        "desc": descController.text.trim(),
+                        "github": githubController.text.trim(),
+                        "imgurl": ref.toString()
+                      };
+
+                      db
+                          .collection("projects")
+                          .doc((data.size + 1).toString())
+                          .set(project);
+
+                      nameController.clear();
+                      descController.clear();
+                      githubController.clear();
+
+                      final snackBar = SnackBar(
+                        content: const Text(
+                            'Cadastro de projeto realizado com Sucesso!'),
+                        action: SnackBarAction(
+                          label: 'Fechar',
+                          onPressed: () {
+                            // Some code to undo the change.
+                          },
+                        ),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
+                  },
+                  child: const Text('Adicionar'));
+            })
       ]),
     );
   }

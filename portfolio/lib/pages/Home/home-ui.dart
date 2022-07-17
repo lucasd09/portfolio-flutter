@@ -165,23 +165,49 @@ class _HomeState extends State<Home> {
 
                           final data = snapshot.requireData;
 
-                          return Card(
-                            clipBehavior: Clip.antiAlias,
-                            child: Column(
-                              children: [
-                                Image.network(
-                                  'https://firebasestorage.googleapis.com/v0/b/portfolio-flutter-378c9.appspot.com/o/source%2FLogo1.png?alt=media&token=5fe9974b-5659-4080-bed3-88323e884d35',
-                                  height: 150,
-                                ),
-                                ListTile(
-                                  title: Text(data.docs[data.size-1]['name']),
-                                  subtitle: Text(
-                                    data.docs[data.size-1]['desc'],
-                                    style: TextStyle(
-                                        color: Colors.black.withOpacity(0.6)),
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Projects()),
+                              );
+                            },
+                            child: Card(
+                              clipBehavior: Clip.antiAlias,
+                              child: Column(
+                                children: [
+                                  FutureBuilder(
+                                    future: getURL(
+                                        data.docs[data.size - 1]['imgurl']),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasError) {
+                                        return const Text('ERRO');
+                                      }
+
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return const Center(
+                                            child: CircularProgressIndicator());
+                                      }
+
+                                      final urldata = snapshot.requireData;
+
+                                      return Image.network(urldata.toString(),
+                                          height: 150);
+                                    },
                                   ),
-                                ),
-                              ],
+                                  ListTile(
+                                    title:
+                                        Text(data.docs[data.size - 1]['name']),
+                                    subtitle: Text(
+                                      data.docs[data.size - 1]['desc'],
+                                      style: TextStyle(
+                                          color: Colors.black.withOpacity(0.6)),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           );
                         }),
@@ -246,4 +272,10 @@ class _HomeState extends State<Home> {
           ],
         ));
   }
+}
+
+Future<String> getURL(path) async {
+  var downloadURL = await FirebaseStorage.instance.ref(path).getDownloadURL();
+
+  return downloadURL;
 }

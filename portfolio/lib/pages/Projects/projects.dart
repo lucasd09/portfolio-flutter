@@ -39,13 +39,18 @@ class Projects extends StatelessWidget {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.only(top: 10),
+            padding: EdgeInsets.only(top: 10, left: 20, right: 20),
             child: Text(
-              'Esses são todos os projetos que já fiz:',
-              style: TextStyle(fontSize: 16),
+              'Esses são todos os projetos que já fiz, para ver o link do projeto/repositório, clique no Card desejado:',
+              style: TextStyle(
+                fontSize: 16,
+              ),
             ),
           ),
-          StreamBuilder(
+          const Divider(
+            thickness: 1,
+          ),
+          StreamBuilder<QuerySnapshot>(
               stream: projects,
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -59,39 +64,67 @@ class Projects extends StatelessWidget {
 
                 final data = snapshot.requireData;
 
-                return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: data.size,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 25, 25, 0),
-                      child: Card(
-                        clipBehavior: Clip.antiAlias,
-                        child: Column(
-                          children: [
-                            Image.network(
-                                storage
-                                    .ref(data.docs[index]['imgurl'])
-                                    .getDownloadURL()
-                                    .toString(),
-                                height: 150),
-                            ListTile(
-                              title: Text(data.docs[index]['name']),
-                              subtitle: Text(
-                                data.docs[index]['desc'],
-                                style: TextStyle(
-                                    color: Colors.black.withOpacity(0.6)),
-                              ),
+                if (data.size > 0) {
+                  return Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: data.size,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.fromLTRB(25, 25, 25, 0),
+                          child: Card(
+                            clipBehavior: Clip.antiAlias,
+                            child: Column(
+                              children: [
+                                FutureBuilder(
+                                  future: getURL(data.docs[index]['imgurl']),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasError) {
+                                      return const Text('ERRO');
+                                    }
+
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return const Center(
+                                          child: CircularProgressIndicator());
+                                    }
+
+                                    final urldata = snapshot.requireData;
+
+                                    return Image.network(
+                                      urldata.toString(),
+                                      height: 180,
+                                    );
+                                  },
+                                ),
+                                ListTile(
+                                  title: Text(data.docs[index]['name']),
+                                  subtitle: Text(
+                                    data.docs[index]['desc'],
+                                    style: TextStyle(
+                                        color: Colors.black.withOpacity(0.6)),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                }
+                return const Center(
+                  child: Text('Não há nenhum projeto cadastrado :('),
                 );
               })
         ],
       )),
     );
   }
+}
+
+Future<String> getURL(path) async {
+  var downloadURL = await FirebaseStorage.instance.ref(path).getDownloadURL();
+
+  return downloadURL;
 }
