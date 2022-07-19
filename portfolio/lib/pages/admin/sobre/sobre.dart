@@ -9,6 +9,7 @@ class Sobre extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: BackgroundColor,
       ),
       body: SobreBody(),
