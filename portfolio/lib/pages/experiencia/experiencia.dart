@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/app_constants.dart';
@@ -8,21 +9,57 @@ class Experiencia extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: BackgroundColor,
-      ),
+      appBar: AppBar(backgroundColor: BackgroundColor, toolbarHeight: 80),
       body: ExperienciaBody(),
     );
   }
 }
 
 class ExperienciaBody extends StatelessWidget {
-  const ExperienciaBody({Key? key}) : super(key: key);
+  ExperienciaBody({Key? key}) : super(key: key);
+
+  final Stream<QuerySnapshot> experiencia =
+      FirebaseFirestore.instance.collection("experience").snapshots();
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(children: []),
+    return SizedBox.expand(
+      child: Column(children: [
+        const Text('Experiência'),
+        const Divider(
+          thickness: 1,
+        ),
+        StreamBuilder(
+            stream: experiencia,
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                return const Text('ERRO');
+              }
+
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              final data = snapshot.requireData;
+
+              return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: data.size,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        ListTile(
+                          leading: Icon(
+                            Icons.label_outlined,
+                          ),
+                          title: Text(data.docs[index]['name']),
+                        )
+                      ],
+                    );
+                  });
+            })
+      ]),
     );
   }
 }

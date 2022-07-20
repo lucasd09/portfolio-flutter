@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/pages/admin/cursos/cursos.dart';
+import 'package:portfolio/pages/admin/hobbies/hobbies.dart';
 import 'package:portfolio/pages/experiencia/experiencia.dart';
 import 'package:portfolio/pages/skills/skills.dart';
 
@@ -132,43 +134,60 @@ class AboutBody extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Stack(
-                    clipBehavior: Clip.none,
-                    alignment: Alignment.center,
-                    children: [
-                      const CircleAvatar(
-                        backgroundColor: Colors.black26,
-                        radius: 35,
-                      ),
-                      Positioned(
-                          top: 75,
-                          child: SizedBox(
-                            width: 75,
-                            child: Wrap(
-                              alignment: WrapAlignment.center,
-                              children: const [Text('Cursos')],
-                            ),
-                          ))
-                    ],
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Cursos()),
+                      );
+                    },
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      alignment: Alignment.center,
+                      children: [
+                        const CircleAvatar(
+                          backgroundColor: Colors.black26,
+                          radius: 35,
+                        ),
+                        Positioned(
+                            top: 75,
+                            child: SizedBox(
+                              width: 75,
+                              child: Wrap(
+                                alignment: WrapAlignment.center,
+                                children: const [Text('Cursos')],
+                              ),
+                            ))
+                      ],
+                    ),
                   ),
-                  Stack(
-                    clipBehavior: Clip.none,
-                    alignment: Alignment.center,
-                    children: [
-                      const CircleAvatar(
-                        backgroundColor: Colors.black26,
-                        radius: 35,
-                      ),
-                      Positioned(
-                          top: 75,
-                          child: SizedBox(
-                            width: 75,
-                            child: Wrap(
-                              alignment: WrapAlignment.center,
-                              children: const [Text('Hobbies')],
-                            ),
-                          ))
-                    ],
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Hobbies()),
+                      );
+                    },
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      alignment: Alignment.center,
+                      children: [
+                        const CircleAvatar(
+                          backgroundColor: Colors.black26,
+                          radius: 35,
+                        ),
+                        Positioned(
+                            top: 75,
+                            child: SizedBox(
+                              width: 75,
+                              child: Wrap(
+                                alignment: WrapAlignment.center,
+                                children: const [Text('Hobbies')],
+                              ),
+                            ))
+                      ],
+                    ),
                   ),
                 ],
               ),

@@ -18,15 +18,6 @@ class Projects extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: BackgroundColor,
         toolbarHeight: 80,
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.more_vert_outlined,
-                size: 25,
-                color: PrimaryColor,
-              ))
-        ],
       ),
       body: SizedBox.expand(
           child: Column(
