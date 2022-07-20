@@ -51,9 +51,15 @@ class ExperienciaBody extends StatelessWidget {
                       children: [
                         ListTile(
                           leading: Icon(
-                            Icons.label_outlined,
+                            Icons.work_outlined,
                           ),
+                          iconColor: PrimaryColor,
                           title: Text(data.docs[index]['name']),
+                          subtitle: Text(
+                            data.docs[index]['job'],
+                            style:
+                                TextStyle(color: Colors.black.withOpacity(0.6)),
+                          ),
                         )
                       ],
                     );
