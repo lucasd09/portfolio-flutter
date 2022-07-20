@@ -44,15 +44,6 @@ class _HomeState extends State<Home> {
             ),
           ),
           toolbarHeight: 80,
-          actions: [
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.more_vert_outlined,
-                  size: 25,
-                  color: PrimaryColor,
-                ))
-          ],
         ),
         body: ListView(
           children: [

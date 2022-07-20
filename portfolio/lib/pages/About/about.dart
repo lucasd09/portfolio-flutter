@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/pages/experiencia/experiencia.dart';
+import 'package:portfolio/pages/skills/skills.dart';
 
 import '../../../constants/app_constants.dart';
 
@@ -12,15 +14,6 @@ class About extends StatelessWidget {
         backgroundColor: BackgroundColor,
         toolbarHeight: 80,
         elevation: 0,
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.more_vert_outlined,
-                size: 25,
-                color: PrimaryColor,
-              ))
-        ],
       ),
       body: const AboutBody(),
     );
@@ -65,8 +58,123 @@ class AboutBody extends StatelessWidget {
             )
           ],
         ),
-        Text('Lucas Dalan'),
-        Text('Desenvolvedor de Software')
+        const Text('Lucas Dalan', style: TextStyle(fontSize: 36)),
+        const Text('Desenvolvedor de Software',
+            style: TextStyle(fontSize: 20, color: Colors.grey)),
+        SizedBox(
+          height: MediaQuery.of(context).size.width / 1.3,
+          width: MediaQuery.of(context).size.width / 1.3,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Experiencia()),
+                      );
+                    },
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      alignment: Alignment.center,
+                      children: [
+                        const CircleAvatar(
+                          backgroundColor: Colors.black26,
+                          radius: 35,
+                        ),
+                        Positioned(
+                            top: 75,
+                            child: SizedBox(
+                              width: 75,
+                              child: Wrap(
+                                alignment: WrapAlignment.center,
+                                children: const [
+                                  Text('Experiência Profissional')
+                                ],
+                              ),
+                            ))
+                      ],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Skills()),
+                      );
+                    },
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      alignment: Alignment.center,
+                      children: [
+                        const CircleAvatar(
+                          backgroundColor: Colors.black26,
+                          radius: 35,
+                        ),
+                        Positioned(
+                            top: 75,
+                            child: SizedBox(
+                              width: 75,
+                              child: Wrap(
+                                alignment: WrapAlignment.center,
+                                children: const [Text('Skills')],
+                              ),
+                            ))
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Stack(
+                    clipBehavior: Clip.none,
+                    alignment: Alignment.center,
+                    children: [
+                      const CircleAvatar(
+                        backgroundColor: Colors.black26,
+                        radius: 35,
+                      ),
+                      Positioned(
+                          top: 75,
+                          child: SizedBox(
+                            width: 75,
+                            child: Wrap(
+                              alignment: WrapAlignment.center,
+                              children: const [Text('Cursos')],
+                            ),
+                          ))
+                    ],
+                  ),
+                  Stack(
+                    clipBehavior: Clip.none,
+                    alignment: Alignment.center,
+                    children: [
+                      const CircleAvatar(
+                        backgroundColor: Colors.black26,
+                        radius: 35,
+                      ),
+                      Positioned(
+                          top: 75,
+                          child: SizedBox(
+                            width: 75,
+                            child: Wrap(
+                              alignment: WrapAlignment.center,
+                              children: const [Text('Hobbies')],
+                            ),
+                          ))
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        )
       ]),
     );
   }
