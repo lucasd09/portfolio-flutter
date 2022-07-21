@@ -86,6 +86,7 @@ class AboutBody extends StatelessWidget {
                       children: [
                         const CircleAvatar(
                           backgroundColor: Colors.black26,
+                          
                           radius: 35,
                         ),
                         Positioned(

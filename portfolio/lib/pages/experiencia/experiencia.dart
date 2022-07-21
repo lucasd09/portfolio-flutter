@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import '../../../constants/app_constants.dart';
 
@@ -18,14 +20,22 @@ class Experiencia extends StatelessWidget {
 class ExperienciaBody extends StatelessWidget {
   ExperienciaBody({Key? key}) : super(key: key);
 
-  final Stream<QuerySnapshot> experiencia =
-      FirebaseFirestore.instance.collection("experience").snapshots();
+  final Stream<QuerySnapshot> experiencia = FirebaseFirestore.instance
+      .collection("experience")
+      .orderBy('startdate')
+      .snapshots();
 
   @override
   Widget build(BuildContext context) {
     return SizedBox.expand(
       child: Column(children: [
-        const Text('Experiência'),
+        const Padding(
+          padding: EdgeInsets.only(top: 20, bottom: 15),
+          child: Text(
+            'Experiência',
+            style: TextStyle(fontSize: 36),
+          ),
+        ),
         const Divider(
           thickness: 1,
         ),
@@ -47,21 +57,41 @@ class ExperienciaBody extends StatelessWidget {
                   shrinkWrap: true,
                   itemCount: data.size,
                   itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        ListTile(
-                          leading: Icon(
-                            Icons.work_outlined,
+                    var dataini = DateFormat.yMMMd('pt-BR')
+                        .format(data.docs[index]['startdate'].toDate());
+                    var datafin = DateFormat.yMMMd('pt-BR')
+                        .format(data.docs[index]['enddate'].toDate());
+
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15),
+                            child: ListTile(
+                              horizontalTitleGap: 0,
+                              leading: const Icon(
+                                Icons.work_outlined,
+                              ),
+                              iconColor: PrimaryColor,
+                              isThreeLine: true,
+                              title: Text(data.docs[index]['name']),
+                              subtitle: Text(
+                                data.docs[index]['job'] +
+                                    '\n' +
+                                    dataini +
+                                    ' à ' +
+                                    datafin,
+                                style: TextStyle(
+                                    color: Colors.black.withOpacity(0.6)),
+                              ),
+                            ),
                           ),
-                          iconColor: PrimaryColor,
-                          title: Text(data.docs[index]['name']),
-                          subtitle: Text(
-                            data.docs[index]['job'],
-                            style:
-                                TextStyle(color: Colors.black.withOpacity(0.6)),
-                          ),
-                        )
-                      ],
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width / 1.2,
+                              child: Text(data.docs[index]['desc']))
+                        ],
+                      ),
                     );
                   });
             })
