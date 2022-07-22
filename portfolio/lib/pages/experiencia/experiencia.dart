@@ -20,10 +20,8 @@ class Experiencia extends StatelessWidget {
 class ExperienciaBody extends StatelessWidget {
   ExperienciaBody({Key? key}) : super(key: key);
 
-  final Stream<QuerySnapshot> experiencia = FirebaseFirestore.instance
-      .collection("experience")
-      .orderBy('startdate')
-      .snapshots();
+  final Stream<QuerySnapshot> experiencia =
+      FirebaseFirestore.instance.collection("experience").snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -59,8 +57,10 @@ class ExperienciaBody extends StatelessWidget {
                   itemBuilder: (context, index) {
                     var dataini = DateFormat.yMMMd('pt-BR')
                         .format(data.docs[index]['startdate'].toDate());
-                    var datafin = DateFormat.yMMMd('pt-BR')
-                        .format(data.docs[index]['enddate'].toDate());
+                    var datafin = data.docs[index]['atual']
+                        ? 'atualmente'
+                        : DateFormat.yMMMd('pt-BR')
+                            .format(data.docs[index]['enddate'].toDate());
 
                     return Padding(
                       padding: const EdgeInsets.only(top: 20),
@@ -80,7 +80,7 @@ class ExperienciaBody extends StatelessWidget {
                                 data.docs[index]['job'] +
                                     '\n' +
                                     dataini +
-                                    ' à ' +
+                                    ' - ' +
                                     datafin,
                                 style: TextStyle(
                                     color: Colors.black.withOpacity(0.6)),

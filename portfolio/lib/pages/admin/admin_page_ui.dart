@@ -74,21 +74,6 @@ class AdminBody extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const Sobre()),
-                );
-              },
-              child: const Text(
-                'Sobre',
-                style: TextStyle(color: Colors.black),
-              )),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 15),
-          child: OutlinedButton(
-              style: style,
-              onPressed: () {
-                Navigator.push(
-                  context,
                   MaterialPageRoute(builder: (context) => const Projetos()),
                 );
               },
