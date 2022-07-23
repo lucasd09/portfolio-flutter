@@ -20,8 +20,10 @@ class Experiencia extends StatelessWidget {
 class ExperienciaBody extends StatelessWidget {
   ExperienciaBody({Key? key}) : super(key: key);
 
-  final Stream<QuerySnapshot> experiencia =
-      FirebaseFirestore.instance.collection("experience").snapshots();
+  final Stream<QuerySnapshot> experiencia = FirebaseFirestore.instance
+      .collection("experience")
+      .orderBy('startdate', descending: true)
+      .snapshots();
 
   @override
   Widget build(BuildContext context) {
