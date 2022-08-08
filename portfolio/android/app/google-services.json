@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:296127165204:android:9147d66345ba9ca2de0801",
         "android_client_info": {
-          "package_name": "com.example.portfolio"
+          "package_name": "com.lucasdalan.portfolioonline"
         }
       },
       "oauth_client": [
@@ -34,7 +34,7 @@
               "client_id": "296127165204-uibuoj9pgrq56attqdpne6qi2483htn4.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.portfolio"
+                "bundle_id": "com.lucasdalan.portfolioonline"
               }
             }
           ]

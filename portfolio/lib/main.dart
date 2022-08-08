@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/constants/app_constants.dart';
 import 'package:portfolio/core/auth/widget.dart';
 import 'package:portfolio/core/auth_service.dart';
@@ -35,7 +36,9 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: 'Ice App',
           theme: ThemeData(
-              primaryColor: PrimaryColor, primarySwatch: Colors.green),
+              textTheme: GoogleFonts.reemKufiTextTheme(),
+              primaryColor: PrimaryColor,
+              primarySwatch: Colors.green),
           home: const AuthWrapper(),
         ));
   }

@@ -231,14 +231,18 @@ class _HomeState extends State<Home> {
             const Divider(
               thickness: 1,
             ),
+            Text(''),
             SizedBox(
               child: Column(children: const [
-                Text('Contato'),
-                Text('Contato'),
-                Text('Contato'),
-                Text('Contato'),
-                Text('Contato'),
-                Text('Contato'),
+                ListTile(
+                  title: Text('@lucas.dalan'),
+                ),
+                ListTile(
+                  title: Text('/lucasdalan'),
+                ),
+                ListTile(
+                  title: Text('/lucasd09'),
+                ),
               ]),
             ),
             Container(

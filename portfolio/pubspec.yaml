@@ -30,6 +30,9 @@ dependencies:
   flutter:
     sdk: flutter
   
+  #fonts
+  google_fonts: ^2.1.0
+  
   #firebase
   firebase_core: ^1.18.0
   cloud_firestore: ^3.1.5
@@ -37,6 +40,8 @@ dependencies:
 
   #imagem
   image_picker: ^0.8.4+2
+
+  
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -49,12 +54,15 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^1.0.0
+
+  flutter_launcher_icons: "^0.10.0"
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/app_logo.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

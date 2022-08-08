@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/pages/admin/cursos/cursos.dart';
-import 'package:portfolio/pages/admin/hobbies/hobbies.dart';
+import 'package:portfolio/pages/cursos/cursos.dart';
+import 'package:portfolio/pages/hobbies/hobbies.dart';
 import 'package:portfolio/pages/experiencia/experiencia.dart';
 import 'package:portfolio/pages/skills/skills.dart';
 
@@ -86,7 +86,6 @@ class AboutBody extends StatelessWidget {
                       children: [
                         const CircleAvatar(
                           backgroundColor: Colors.black26,
-                          
                           radius: 35,
                         ),
                         Positioned(
